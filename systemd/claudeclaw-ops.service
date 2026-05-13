@@ -1,0 +1,18 @@
+[Unit]
+Description=ClaudeClaw Ops Agent
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/adminjames/claudeclaw
+ExecStart=/home/adminjames/.local/bin/node /home/adminjames/claudeclaw/dist/index.js --agent ops
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+Environment=NODE_ENV=production
+Environment=HOME=/home/adminjames
+Environment=PATH=/home/adminjames/.local/bin:/usr/local/bin:/usr/bin:/bin
+
+[Install]
+WantedBy=default.target
