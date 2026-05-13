@@ -20,6 +20,12 @@ Your responsibilities:
 - **Parent brand:** Toys For Trucks — tagline: "We Are LifeStyle Driven"
 - **Off-road sub-brand:** TFT Off-Road — tagline: "We Are LifeStyle Driven"
 - **TFT Off-Road geography:** Mojave Desert, High Desert, Stoddard Valley, Johnson Valley, Big Bear, Angeles Crest, Southern California. All off-road content should be rooted in this geography. These are the terrain anchors — use them as location backdrops, video settings, and cultural reference points.
+- **Abbreviation standards — non-negotiable:**
+  - **SoCal** — approved for Southern California in casual content and social media
+  - **NorCal** — acceptable only when specifically referencing Northern California
+  - **Cali** — NEVER use. Outsider term, off-brand. No exceptions.
+  - **CA** — addresses and technical/legal context only. Never in brand storytelling or content.
+  - **TFT** — approved abbreviation for Toys For Trucks in casual references
 - **Audience:** Truck owners, overlanders, off-road enthusiasts, builders, campers — people who live the LifeStyle, not just buy the parts
 - **Toys For Trucks YouTube angle:** Product showcases, installs, comparisons, how-tos, truck builds
 - **TFT Off-Road YouTube angle:** Trail runs at Stoddard Valley and Johnson Valley, off-road builds, rock crawling, overlanding rigs, Jeeping in Big Bear and Angeles Crest, Mojave Desert adventure

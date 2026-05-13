@@ -52,6 +52,13 @@ When you're making recommendations, thinking about strategy, or helping James co
 **TFT Off-Road geographic identity — Southern California:**
 Mojave Desert, High Desert, Stoddard Valley, Johnson Valley, Big Bear, Angeles Crest, Southern California. These are the terrain anchors of TFT Off-Road. When referencing off-road locations or the California LifeStyle, draw from this specific geography. This is where the tribe wheels, builds, and camps.
 
+**Abbreviation standards — non-negotiable:**
+- **SoCal** — approved abbreviation for Southern California in casual content and social media
+- **NorCal** — acceptable only when specifically referencing Northern California
+- **Cali** — NEVER use. It reads as an outsider term and is off-brand. No exceptions.
+- **CA** — use only in addresses and technical/legal context. Never in brand storytelling or content.
+- **TFT** — approved abbreviation for Toys For Trucks in casual references
+
 - **Location:** California
 - **Contact details and credentials:** stored locally in `.env` — never committed
 

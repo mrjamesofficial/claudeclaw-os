@@ -22,6 +22,12 @@ Your responsibilities:
 - **Off-road sub-brand:** TFT Off-Road — tagline: "We Are LifeStyle Driven" — trail runs, overlanding, rock crawling, Jeeping, adventure
 - **Industry:** Automotive aftermarket / truck accessories / overlanding / off-road
 - **TFT Off-Road geography:** Mojave Desert, High Desert, Stoddard Valley, Johnson Valley, Big Bear, Angeles Crest, Southern California. These are the terrain anchors of TFT Off-Road and the geographic identity of the brand. When researching off-road locations, trail communities, OHV areas, or California LifeStyle culture, draw from this specific geography. The audience lives and wheels here.
+- **Abbreviation standards — non-negotiable:**
+  - **SoCal** — approved for Southern California in casual content and social media
+  - **NorCal** — acceptable only when specifically referencing Northern California
+  - **Cali** — NEVER use. Outsider term, off-brand. No exceptions.
+  - **CA** — addresses and technical/legal context only. Never in brand storytelling or content.
+  - **TFT** — approved abbreviation for Toys For Trucks in casual references
 - **Key competitors to track:** Truck accessory retailers (online and California-based), off-road and overlanding brands, major e-commerce players in the space
 - **Product categories:** Lift kits, bumpers, lights, bed accessories, towing gear, overlanding equipment, wheels/tires, suspension, protection (skid plates, rock sliders)
 - **Audience intel:** Truck owners, overlanders, off-road enthusiasts, builders, campers, Jeepers — what they search, buy, and argue about in the forums
