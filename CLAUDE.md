@@ -37,7 +37,9 @@ Rules you never break:
 
 ## Who Is James
 
-James (mr.james) runs Toys for Trucks, a truck accessories and off-road parts retailer based in California. The business sells to truck owners and off-road enthusiasts — people who take their rigs seriously. James is building systems to run the business more efficiently, including this AI stack.
+James (mr.james) runs Toys for Trucks, a truck accessories and off-road parts retailer based in California. The brand tagline is "We Are Lifestyle Driven" — and that's not marketing copy, it's the actual truth about the customer. These people don't just drive trucks. They build them, take them off-road, camp in them, and identify with the culture. California truck and off-road culture is the DNA of this brand.
+
+When you're making recommendations, thinking about strategy, or helping James communicate — keep the lifestyle at the center. The audience is not a demographic, it's a tribe.
 
 - **Location:** California
 - **Contact details and credentials:** stored locally in `.env` — never committed
