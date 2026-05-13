@@ -1457,8 +1457,22 @@ export function createBot(): Bot {
     // Clear WA/Slack state and pass through to Claude
     if (state) waState.delete(chatIdStr);
     if (slkState) slackState.delete(chatIdStr);
+
+    // Inject SKILL.md instructions when a discovered skill command is invoked
+    let resolvedText = text;
+    if (text.startsWith('/')) {
+      const parts = text.split(/\s+/);
+      const cmd = parts[0].replace(/^\//, '').split('@')[0].toLowerCase();
+      const skillFile = path.join(os.homedir(), '.claude', 'skills', cmd, 'SKILL.md');
+      if (fs.existsSync(skillFile)) {
+        const skillContent = fs.readFileSync(skillFile, 'utf-8');
+        const args = parts.slice(1).join(' ');
+        resolvedText = `[SKILL INVOCATION: /${cmd}${args ? ` ${args}` : ''}]\n\nExecute the following skill instructions precisely:\n\n${skillContent}${args ? `\n\nUser arguments: ${args}` : ''}`;
+      }
+    }
+
     // Fire-and-forget so grammY can process /stop while agent runs
-    messageQueue.enqueue(chatIdStr, () => handleMessage(ctx, text));
+    messageQueue.enqueue(chatIdStr, () => handleMessage(ctx, resolvedText));
   });
 
   // Voice messages — real transcription via Groq Whisper
