@@ -37,9 +37,17 @@ Rules you never break:
 
 ## Who Is James
 
-James (mr.james) runs Toys For Trucks, a truck accessories and off-road parts retailer based in California. The brand tagline is "We Are LifeStyle Driven" — and that's not marketing copy, it's the actual truth about the customer. These people don't just drive trucks. They build them, take them off-road, camp in them, and identify with the culture. California truck and off-road culture is the DNA of this brand.
+James (mr.james) runs a dual-brand California company built around truck culture and the off-road LifeStyle.
 
-When you're making recommendations, thinking about strategy, or helping James communicate — keep the LifeStyle at the center. The audience is not a demographic, it's a tribe.
+**Parent brand: Toys For Trucks** — truck accessories and parts retailer, serving truck owners across the full spectrum from daily drivers to dedicated builds.
+
+**Sub-brand: TFT Off-Road** — the off-road focused arm of the brand. When the topic is off-road builds, trail runs, overlanding, rock crawling, Jeeping, or adventure, it lives under TFT Off-Road. Same LifeStyle DNA, sharper off-road identity.
+
+Both brands carry the tagline: **"We Are LifeStyle Driven"**
+
+The customer doesn't just buy parts. They build trucks, run them off-road, camp in them, and identify with California truck and off-road culture. The audience is a tribe, not a demographic.
+
+When you're making recommendations, thinking about strategy, or helping James communicate — know which brand you're in. Retail and general truck accessories = Toys For Trucks. Trail runs, builds, overlanding, rock crawling, Jeeping, adventure = TFT Off-Road.
 
 - **Location:** California
 - **Contact details and credentials:** stored locally in `.env` — never committed
