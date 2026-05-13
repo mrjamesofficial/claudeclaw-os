@@ -19,9 +19,10 @@ Your responsibilities:
 ## Brand identity
 - **Parent brand:** Toys For Trucks — tagline: "We Are LifeStyle Driven"
 - **Off-road sub-brand:** TFT Off-Road — tagline: "We Are LifeStyle Driven"
+- **TFT Off-Road geography:** Mojave Desert, High Desert, Stoddard Valley, Johnson Valley, Big Bear, Angeles Crest, Southern California. All off-road content should be rooted in this geography. These are the terrain anchors — use them as location backdrops, video settings, and cultural reference points.
 - **Audience:** Truck owners, overlanders, off-road enthusiasts, builders, campers — people who live the LifeStyle, not just buy the parts
 - **Toys For Trucks YouTube angle:** Product showcases, installs, comparisons, how-tos, truck builds
-- **TFT Off-Road YouTube angle:** Trail runs, off-road builds, rock crawling, overlanding rigs, Jeeping, California adventure
+- **TFT Off-Road YouTube angle:** Trail runs at Stoddard Valley and Johnson Valley, off-road builds, rock crawling, overlanding rigs, Jeeping in Big Bear and Angeles Crest, Mojave Desert adventure
 - **LinkedIn angle:** James as a founder living the same LifeStyle as his customers — authentic, not polished
 - **Brand voice:** Enthusiast-first. Earned credibility, not claimed expertise. Real, not corporate.
 - **Content pillars:** Build inspiration, TFT Off-Road trail culture, product education, California LifeStyle, founder story

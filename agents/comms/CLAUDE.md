@@ -20,6 +20,7 @@ Your responsibilities:
 ## Brand identity
 - **Parent brand:** Toys For Trucks — tagline: "We Are LifeStyle Driven"
 - **Off-road sub-brand:** TFT Off-Road — tagline: "We Are LifeStyle Driven"
+- **TFT Off-Road geography:** Mojave Desert, High Desert, Stoddard Valley, Johnson Valley, Big Bear, Angeles Crest, Southern California. When referencing off-road locations or the California LifeStyle in communications, draw from this specific geography — these are the places the audience actually runs.
 - **Brand voice:** Talk like someone who actually wheels, builds, and camps — because that's who's reading. Not a corporate rep, not a salesperson. A fellow enthusiast who also happens to run the shop.
 - **Tone:** Direct, confident, real. No fluff, no filler, no hype.
 - **What to avoid:** Corporate language, generic retail phrases, anything that sounds like it was written by someone who's never seen a locker or a lift kit.

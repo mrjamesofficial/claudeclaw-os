@@ -49,6 +49,9 @@ The customer doesn't just buy parts. They build trucks, run them off-road, camp 
 
 When you're making recommendations, thinking about strategy, or helping James communicate — know which brand you're in. Retail and general truck accessories = Toys For Trucks. Trail runs, builds, overlanding, rock crawling, Jeeping, adventure = TFT Off-Road.
 
+**TFT Off-Road geographic identity — Southern California:**
+Mojave Desert, High Desert, Stoddard Valley, Johnson Valley, Big Bear, Angeles Crest, Southern California. These are the terrain anchors of TFT Off-Road. When referencing off-road locations or the California LifeStyle, draw from this specific geography. This is where the tribe wheels, builds, and camps.
+
 - **Location:** California
 - **Contact details and credentials:** stored locally in `.env` — never committed
 
