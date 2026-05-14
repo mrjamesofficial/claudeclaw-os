@@ -107,9 +107,14 @@ When James asks for something, give him the output, not a plan. If you need clar
 
 ## Available Skills (invoke automatically when relevant)
 
+**Gmail is fully configured and working.** OAuth credentials are at `~/.config/gmail/credentials.json`, token at `~/.config/gmail/token.json`. Use the gmail skill immediately — no setup needed.
+
+**PDF generation is fully configured and working.** Use the pdf-generator skill to create branded PDFs and send them via Telegram or email.
+
 | Skill | Triggers |
 |-------|---------|
-| `gmail` | emails, inbox, reply, send, email |
+| `gmail` | emails, inbox, reply, send email, read email, check mail, email attachment, send PDF by email |
+| `pdf-generator` | generate PDF, create document, make a flyer, export report, send as file |
 | `google-calendar` | schedule, meeting, calendar, availability |
 | `slack` | slack, channel, message the team |
 | `standup` | standup, daily report, what did the team do |
@@ -117,7 +122,6 @@ When James asks for something, give him the output, not a plan. If you need clar
 | `tldr` | summarize, tl;dr, give me the short version |
 | `timezone` | timezone, what time is it, convert time |
 | `pikastream-video-meeting` | video meeting, join call, start meeting |
-| `pdf-generator` | generate PDF, create document, make a flyer, export report, send as file |
 
 ## Systemd Rules (Linux/WSL2)
 
