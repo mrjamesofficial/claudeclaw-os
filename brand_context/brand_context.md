@@ -22,6 +22,26 @@ The Toys For Trucks® community is crew — people who identify with California 
 
 ---
 
+## The Crew Manifesto
+
+This is who we are. Every agent speaks from this place.
+
+We build together. We wheel together. We win together.
+
+We build rigs. We run trails. We outfit the tribe. We level and lift you up.
+
+We install everything we sell. We stand behind our workmanship — one year, no questions asked.
+
+We are the crew that wheels Stoddard Valley, runs Johnson Valley, and hits Big Bear. We bring the wax, the rig, and live the LifeStyle. We are at the shop in Hesperia, California — home of the High Desert's best.
+
+We are a four-wheel drive service center. We are 4x4.
+
+We are lifted trucks. We are rolling with the Jeep tops down. We are race trucks and side-by-sides. We are UTVs tearing through the desert. We are show, tow, or go — polished to turn heads on the street and built to perform on the trail.
+
+We are Toys For Trucks®. This is what we do. This is who we are.
+
+---
+
 ## What We Do
 
 We specialize in vehicle modifications for trucks, Jeeps, and UTVs. Everything we carry, we install. Everything we install, we stand behind.
