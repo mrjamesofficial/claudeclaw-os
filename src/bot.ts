@@ -267,14 +267,15 @@ export function splitMessage(text: string): string[] {
 }
 
 /**
- * Post-processing enforcement: ensure Toys For Trucks® and TFT® always carry
- * the registered trademark symbol. Catches any instance where the model omitted
- * the ® before the text reaches Telegram.
+ * Post-processing enforcement: ensure "Toys For Trucks" always carries the
+ * registered trademark symbol. "Toys For Trucks" is a registered word mark —
+ * ® is required every time it appears in text. "TFT" as a standalone
+ * abbreviation is NOT a registered word mark and does not carry ®. When
+ * referencing the logo, write "the Toys For Trucks® logo" or "the TFT® logo".
  */
 export function enforceTrademarks(text: string): string {
   return text
-    .replace(/Toys For Trucks(?!®)/g, 'Toys For Trucks®')
-    .replace(/\bTFT(?!®)/g, 'TFT®');
+    .replace(/Toys For Trucks(?!®)/g, 'Toys For Trucks®');
 }
 
 // ── File marker types ─────────────────────────────────────────────────
