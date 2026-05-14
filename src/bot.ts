@@ -612,6 +612,10 @@ async function handleMessage(ctx: Context, message: string, forceVoiceReply = fa
       },
       MODEL_FALLBACK_CHAIN.length > 0 ? MODEL_FALLBACK_CHAIN : undefined,
       agentMcpAllowlist,
+      (clearedSessionId) => {
+        clearSession(chatIdStr, AGENT_ID);
+        logger.info({ clearedSessionId, agentId: AGENT_ID }, 'Stale session auto-cleared from DB');
+      },
     );
 
     clearTimeout(timeoutId);
@@ -1599,7 +1603,7 @@ async function processDashboardMessage(
       abortCtrl.abort();
     }, AGENT_TIMEOUT_MS);
 
-    const result = await runAgent(
+    const result = await runAgentWithRetry(
       fullMessage,
       sessionId,
       () => {}, // no typing action for dashboard
@@ -1607,7 +1611,13 @@ async function processDashboardMessage(
       agentDefaultModel,
       abortCtrl,
       undefined, // no streaming for dashboard
+      undefined, // no retry UI callback for dashboard
+      undefined, // no model fallback chain for dashboard
       agentMcpAllowlist,
+      (clearedSessionId) => {
+        clearSession(chatIdStr, AGENT_ID);
+        logger.info({ clearedSessionId, agentId: AGENT_ID }, 'Stale session auto-cleared from DB (dashboard)');
+      },
     );
 
     clearTimeout(dashTimeout);

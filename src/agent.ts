@@ -421,8 +421,10 @@ export async function runAgentWithRetry(
   onRetry?: (attempt: number, error: AgentError) => void,
   fallbackModels?: string[],
   mcpAllowlist?: string[],
+  onSessionCleared?: (clearedSessionId: string) => void,
 ): Promise<AgentResult> {
   let lastError: AgentError | undefined;
+  let activeSessionId = sessionId;
 
   for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
     try {
@@ -433,7 +435,7 @@ export async function runAgentWithRetry(
           : model;
 
       return await runAgent(
-        message, sessionId, onTyping, onProgress,
+        message, activeSessionId, onTyping, onProgress,
         currentModel, abortController, onStreamText,
         mcpAllowlist,
       );
@@ -449,6 +451,18 @@ export async function runAgentWithRetry(
       // Don't retry past the limit
       if (attempt >= MAX_RETRIES) {
         throw err;
+      }
+
+      // Stale session detection: subprocess crash on a resumed session means
+      // the CLI lost its session state. Clear the session and retry fresh —
+      // no manual intervention required.
+      if (err.category === 'subprocess_crash' && activeSessionId) {
+        logger.warn(
+          { clearedSessionId: activeSessionId },
+          'Stale session detected — clearing and retrying fresh',
+        );
+        onSessionCleared?.(activeSessionId);
+        activeSessionId = undefined;
       }
 
       const delayMs = Math.min(
