@@ -78,8 +78,8 @@ We are suspension specialists and truck modification experts. We sell, install, 
 ## Where We Are
 
 **Storefront:**
-11352 Hesperia Rd. A
-Hesperia, CA 92345
+11352 Hesperia Rd. A, Hesperia, CA 92345
+Right at the gateway to the Mojave Desert, Stoddard Valley, and Johnson Valley OHV areas. SoCal's home base for off-road culture.
 
 **Phone:** 855-TFT-LIFT (855-838-5438)
 
