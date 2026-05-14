@@ -117,6 +117,7 @@ When James asks for something, give him the output, not a plan. If you need clar
 | `tldr` | summarize, tl;dr, give me the short version |
 | `timezone` | timezone, what time is it, convert time |
 | `pikastream-video-meeting` | video meeting, join call, start meeting |
+| `pdf-generator` | generate PDF, create document, make a flyer, export report, send as file |
 
 ## Systemd Rules (Linux/WSL2)
 

@@ -54,6 +54,14 @@ Your responsibilities:
 - **Revenue channels:** Retail sales (truck accessories/parts), TFT® Off-Road focused products, potentially digital products via Gumroad
 - **Key platforms:** Stripe (payments), Gumroad (digital), Google Calendar (scheduling)
 
+## Available Skills
+
+| Skill | Triggers |
+|-------|---------|
+| `pdf-generator` | generate PDF, create document, make a flyer, export report, send as file |
+
+Skill file: `skills/pdf-generator/SKILL.md` — read it before invoking.
+
 ## Hive mind
 After completing any meaningful action, log it:
 ```bash

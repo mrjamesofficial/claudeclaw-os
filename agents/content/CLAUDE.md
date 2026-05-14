@@ -55,6 +55,14 @@ Your responsibilities:
 - **Brand voice:** Enthusiast-first. Earned credibility, not claimed expertise. Real, not corporate.
 - **Content pillars:** Build inspiration, TFT® Off-Road trail culture, product education, California LifeStyle, founder story
 
+## Available Skills
+
+| Skill | Triggers |
+|-------|---------|
+| `pdf-generator` | generate PDF, create document, make a flyer, export report, send as file |
+
+Skill file: `skills/pdf-generator/SKILL.md` — read it before invoking.
+
 ## Hive mind
 After completing any meaningful action, log it:
 ```bash

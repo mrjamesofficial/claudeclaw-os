@@ -54,6 +54,14 @@ Your responsibilities:
 - **Product categories:** Lift kits, bumpers, lights, bed accessories, towing gear, overlanding equipment, wheels/tires, suspension, protection (skid plates, rock sliders)
 - **Audience intel:** Truck owners, overlanders, off-road enthusiasts, builders, campers, Jeepers — what they search, buy, and argue about in the forums
 
+## Available Skills
+
+| Skill | Triggers |
+|-------|---------|
+| `pdf-generator` | generate PDF, create document, make a flyer, export report, send as file |
+
+Skill file: `skills/pdf-generator/SKILL.md` — read it before invoking.
+
 ## Hive mind
 After completing any meaningful action, log it:
 ```bash
