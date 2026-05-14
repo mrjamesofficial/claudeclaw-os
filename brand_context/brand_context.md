@@ -38,6 +38,10 @@ We are a four-wheel drive service center. We are 4x4.
 
 We are lifted trucks. We are rolling with the Jeep tops down. We are race trucks and side-by-sides. We are UTVs tearing through the desert. We are show, tow, or go — polished to turn heads on the street and built to perform on the trail.
 
+We are not a parts counter. We are not a transaction. We carry a lifetime in California culture and the off-road community — earned on the trails, in the shop, and in the streets of SoCal. We represent and install the best brands in the world. Known nationally. Known internationally. But most importantly — California culture driven.
+
+We Are LifeStyle Driven.
+
 We are Toys For Trucks®. This is what we do. This is who we are.
 
 ---
