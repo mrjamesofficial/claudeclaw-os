@@ -100,6 +100,28 @@ These locations are not just backdrops — they are the geographic identity of T
 
 ---
 
+## Digital Properties
+
+**Primary website:** www.toysfortrucksofficial.com
+
+**Additional domains:**
+- toysfortrucks.ai
+- toysfortruckscalifornia.com
+- toys4trucks.com
+- toysfortrucks.net
+
+**Social handles:**
+
+| Handle | Status | Rule |
+|--------|--------|------|
+| @toysfortrucksofficial | Official — active | Use in all content, always |
+| @toysfortrucks | Primary | Do not use in content without confirmation |
+| @toysfortruckscalifornia | To be created — priority task | Reserve for California LifeStyle content |
+
+**Social handle rule — non-negotiable:** Always use **@toysfortrucksofficial** in all content, links, tags, and references. No exceptions until otherwise directed.
+
+---
+
 ## When We Are Open
 
 **Monday through Friday: 9:00 AM — 6:00 PM PST**
