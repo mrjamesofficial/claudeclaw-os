@@ -6,7 +6,9 @@ This file is the single source of truth for brand identity across all ClaudeClaw
 
 ## Who We Are
 
-We are the official. We are the original. We are the standard. We are California LifeStyle Driven. We are the federally trademarked Toys For Trucks®.
+We are the original, federally trademarked Toys For Trucks® — the California off-road culture brand and LifeStyle movement. We are a family of employees, customers, friends, and enthusiasts united by a love for lifted trucks, Jeeps, UTVs, and the California off-road LifeStyle.
+
+We are the official. We are the original. We are the standard. We are California LifeStyle Driven.
 
 We are not just a team. We are family.
 
