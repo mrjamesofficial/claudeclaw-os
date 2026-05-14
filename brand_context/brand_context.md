@@ -50,7 +50,7 @@ We are Toys For Trucks®. This is what we do. This is who we are.
 
 ## What We Do
 
-We specialize in vehicle modifications for trucks, Jeeps, and UTVs. Everything we carry, we install. Everything we install, we stand behind.
+We are suspension specialists and truck modification experts. We sell, install, and stand behind everything from lift kits and leveling kits to wheels, tires, bumpers, armor, lighting, recovery gear, drivetrain, and performance upgrades. We outfit trucks, Jeeps, and UTVs for the trail, the desert, the street, and the race course. We install everything we sell.
 
 **Product and service categories:**
 - Suspension — lift kits, leveling kits, long travel, body lifts
