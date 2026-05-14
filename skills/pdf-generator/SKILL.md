@@ -82,13 +82,18 @@ python3 /home/adminjames/claudeclaw/skills/pdf-generator/generate_pdf.py \
 ]
 ```
 
-## Sending the PDF via Telegram
+## Sending the PDF via Telegram — MANDATORY FINAL STEP
 
-After generating, include a `[SEND_FILE:]` marker in your response. The bot will attach the file to the Telegram message automatically.
+**The PDF does not reach James until you include the `[SEND_FILE:]` marker in your response.**
+Generating the file without this marker means the file sits on disk unseen. Always do this last step.
+
+Your response MUST end with this line (using your actual output path):
 
 ```
-[SEND_FILE:/tmp/my-document.pdf|Optional caption here]
+[SEND_FILE:/tmp/your-filename.pdf|Brief caption here]
 ```
+
+No exceptions. If the bash command succeeded and the file exists, send it.
 
 ## Full example
 
