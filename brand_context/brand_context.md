@@ -102,7 +102,9 @@ These locations are not just backdrops — they are the geographic identity of T
 
 ## When We Are Open
 
-**Monday through Friday: 9:00 AM — 6:00 PM PT**
+**Monday through Friday: 9:00 AM — 6:00 PM PST**
+
+We are here when you're ready to build.
 
 All scheduling and time references use **Pacific Time (PT)**.
 
