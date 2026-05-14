@@ -59,9 +59,12 @@ Your responsibilities:
 
 | Skill | Triggers |
 |-------|---------|
+| `gmail` | email, inbox, send email, reply, read email, check mail, email attachment |
 | `pdf-generator` | generate PDF, create document, make a flyer, export report, send as file |
 
-Skill file: `skills/pdf-generator/SKILL.md` — read it before invoking.
+Skill files: `skills/gmail/SKILL.md`, `skills/pdf-generator/SKILL.md` — read before invoking.
+
+To send a PDF by email: run `pdf-generator` first to create the file, then use `gmail send` with `--attachments`.
 
 ## Hive mind
 After completing any meaningful action, log it:
