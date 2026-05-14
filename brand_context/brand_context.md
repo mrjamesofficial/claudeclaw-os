@@ -192,6 +192,11 @@ When referencing the logo in text, write "the Toys For Trucks® logo" or "the TF
 **Logo usage — NON-NEGOTIABLE:**
 The Toys For Trucks® logo is a federally registered trademark. It must NEVER be embedded, baked in, or hardcoded into any generated document, PDF, flyer, email template, or code without explicit approval from James. Until the production-quality logo file has been officially provided and approved, all agents must use text-only brand references or the logo placeholder description above. Any request to generate content that includes the logo image must be flagged to James for approval before proceeding. No exceptions.
 
+**Logo placeholder URL — single source of truth:**
+Until the official production-quality logo file is formally approved by James, the only permitted logo source for generated PDFs and documents is:
+`https://www.toysfortrucksofficial.com/sites/default/files/logoplain.png`
+Agents must always fetch from this URL at runtime. Never use a local file path. Never embed or hardcode the logo as binary data. When the official file is approved, it will replace this URL reference.
+
 ---
 
 ## Trademark Standards — Non-Negotiable

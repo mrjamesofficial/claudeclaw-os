@@ -110,10 +110,30 @@ Here's the trail report.
 [SEND_FILE:/tmp/trail-report.pdf|TFT® Off-Road Trail Report]
 ```
 
+## Logo — Placeholder Rule (NON-NEGOTIABLE)
+
+The logo in every generated PDF is fetched at runtime from the official website URL:
+
+```
+https://www.toysfortrucksofficial.com/sites/default/files/logoplain.png
+```
+
+This URL is the **single source of truth** for the logo placeholder. Rules:
+
+- **Never** use a local file path for the logo
+- **Never** embed or hardcode the logo as binary data
+- **Never** bake it into any template, code, or document
+
+This is a **PLACEHOLDER ONLY** — in use until the official production-quality TFT® logo file is formally provided and approved by James. When the official file is approved, it will replace this URL reference.
+
+If the URL is unreachable at generation time, the script automatically falls back to a text block ("TFT®") — no manual action needed.
+
+Any request to use a different logo source, embed the logo locally, or generate content with a logo not fetched from this URL must be flagged to James for approval before proceeding.
+
 ## Brand output
 
 Every PDF includes:
-- TFT® logo block (black, top left)
+- Toys For Trucks® logo (fetched from placeholder URL, top left)
 - Bold document title + subtitle
 - Orange accent rule below header
 - Brand + date meta line

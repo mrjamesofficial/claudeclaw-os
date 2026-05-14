@@ -8,6 +8,8 @@ import argparse
 import json
 import os
 import sys
+import tempfile
+import urllib.request
 from datetime import datetime
 
 try:
@@ -17,12 +19,30 @@ try:
     from reportlab.lib import colors
     from reportlab.platypus import (
         SimpleDocTemplate, Paragraph, Spacer, HRFlowable,
-        Table, TableStyle, KeepTogether
+        Table, TableStyle, KeepTogether, Image
     )
     from reportlab.lib.enums import TA_LEFT, TA_CENTER, TA_RIGHT
 except ImportError:
     print("ERROR: reportlab not installed. Run: python3 -m pip install reportlab --break-system-packages")
     sys.exit(1)
+
+# PLACEHOLDER logo URL — single source of truth until the official production-quality
+# TFT® logo file is formally provided and approved by James. Do NOT swap this for a
+# local path or hardcoded binary. When the official file is approved, replace this URL.
+LOGO_PLACEHOLDER_URL = 'https://www.toysfortrucksofficial.com/sites/default/files/logoplain.png'
+
+
+def fetch_logo(width=1.0 * inch, height=0.6 * inch):
+    """Fetch logo from placeholder URL. Returns Image flowable or None on failure."""
+    try:
+        with urllib.request.urlopen(LOGO_PLACEHOLDER_URL, timeout=5) as resp:
+            data = resp.read()
+        tmp = tempfile.NamedTemporaryFile(suffix='.png', delete=False)
+        tmp.write(data)
+        tmp.close()
+        return Image(tmp.name, width=width, height=height, kind='proportional')
+    except Exception:
+        return None
 
 # ── Brand Colors ──────────────────────────────────────────────────────────────
 TFT_BLACK      = colors.HexColor('#1A1A1A')
@@ -108,31 +128,35 @@ def build_styles():
 
 
 def build_header_table(title, subtitle, styles):
-    """Logo placeholder + title block side by side."""
-    logo_data = [
-        [Paragraph('<b>TFT®</b>', ParagraphStyle(
+    """Logo (fetched from placeholder URL) + title block side by side."""
+    logo_img = fetch_logo(width=1.0 * inch, height=0.6 * inch)
+
+    if logo_img:
+        logo_cell = logo_img
+    else:
+        # Text fallback when logo URL is unreachable
+        fallback_data = [[Paragraph('<b>TFT®</b>', ParagraphStyle(
             'LogoText',
             fontName='Helvetica-Bold',
             fontSize=16,
             textColor=TFT_WHITE,
             alignment=TA_CENTER,
-        ))]
-    ]
-    logo_table = Table(logo_data, colWidths=[1.1 * inch], rowHeights=[0.55 * inch])
-    logo_table.setStyle(TableStyle([
-        ('BACKGROUND', (0, 0), (-1, -1), TFT_BLACK),
-        ('ALIGN',      (0, 0), (-1, -1), 'CENTER'),
-        ('VALIGN',     (0, 0), (-1, -1), 'MIDDLE'),
-        ('TOPPADDING', (0, 0), (-1, -1), 6),
-        ('BOTTOMPADDING', (0, 0), (-1, -1), 6),
-    ]))
+        ))]]
+        logo_cell = Table(fallback_data, colWidths=[1.1 * inch], rowHeights=[0.55 * inch])
+        logo_cell.setStyle(TableStyle([
+            ('BACKGROUND', (0, 0), (-1, -1), TFT_BLACK),
+            ('ALIGN',      (0, 0), (-1, -1), 'CENTER'),
+            ('VALIGN',     (0, 0), (-1, -1), 'MIDDLE'),
+            ('TOPPADDING', (0, 0), (-1, -1), 6),
+            ('BOTTOMPADDING', (0, 0), (-1, -1), 6),
+        ]))
 
     title_para = Paragraph(title, styles['doc_title'])
     title_cell = [title_para]
     if subtitle:
         title_cell.append(Paragraph(subtitle, styles['doc_subtitle']))
 
-    header_data = [[logo_table, title_cell]]
+    header_data = [[logo_cell, title_cell]]
     header_table = Table(header_data, colWidths=[1.3 * inch, 5.7 * inch])
     header_table.setStyle(TableStyle([
         ('VALIGN',        (0, 0), (-1, -1), 'MIDDLE'),
