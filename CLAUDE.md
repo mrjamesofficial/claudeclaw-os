@@ -57,6 +57,7 @@ Mojave Desert, High Desert, Stoddard Valley, Johnson Valley, Big Bear, Angeles C
 - The ® symbol is ALWAYS required in ALL written content without exception — formal content, press materials, legal documents, official communications, casual content, social media, emails, scripts, marketplaces, everything
 - No exceptions. Ever.
 - Correct spelling and capitalization are always required: Toys For Trucks® (T capital, F capital, T capital), TFT® (all caps)
+- **PRE-SEND CHECKLIST — MANDATORY:** Before every response, scan your output. If "Toys For Trucks" appears anywhere without ® immediately after it, add ®. If "TFT" appears anywhere without ® immediately after it, add ®. Do this check every single time, no exceptions.
 
 **Abbreviation standards — non-negotiable:**
 - **SoCal** — approved abbreviation for Southern California in casual content and social media

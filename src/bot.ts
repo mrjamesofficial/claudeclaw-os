@@ -266,6 +266,17 @@ export function splitMessage(text: string): string[] {
   return parts;
 }
 
+/**
+ * Post-processing enforcement: ensure Toys For Trucks® and TFT® always carry
+ * the registered trademark symbol. Catches any instance where the model omitted
+ * the ® before the text reaches Telegram.
+ */
+export function enforceTrademarks(text: string): string {
+  return text
+    .replace(/Toys For Trucks(?!®)/g, 'Toys For Trucks®')
+    .replace(/\bTFT(?!®)/g, 'TFT®');
+}
+
 // ── File marker types ─────────────────────────────────────────────────
 export interface FileMarker {
   type: 'document' | 'photo';
@@ -638,7 +649,7 @@ async function handleMessage(ctx: Context, message: string, forceVoiceReply = fa
       logger.info({ newSessionId: result.newSessionId }, 'Session saved');
     }
 
-    let rawResponse = result.text?.trim() || 'Done.';
+    let rawResponse = enforceTrademarks(result.text?.trim() || 'Done.');
 
     // Exfiltration guard: scan for leaked secrets before sending to Telegram
     if (EXFILTRATION_GUARD_ENABLED) {
@@ -1690,7 +1701,7 @@ async function processDashboardMessage(
       setSession(chatIdStr, result.newSessionId, AGENT_ID);
     }
 
-    const rawResponse = result.text?.trim() || 'Done.';
+    const rawResponse = enforceTrademarks(result.text?.trim() || 'Done.');
 
     // Save conversation turn
     saveConversationTurn(chatIdStr, text, rawResponse, result.newSessionId ?? sessionId, AGENT_ID);
