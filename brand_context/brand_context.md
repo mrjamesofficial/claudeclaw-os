@@ -112,7 +112,7 @@ All scheduling and time references use **Pacific Time (PT)**.
 
 ## Mission Statement
 
-We focus on LifeStyle and have a serious commitment to our industry. The truck is an extension of the person driving it — built to reflect how they live, where they go, and what they value. Our job is to build it right, back it up, and be the crew they call when it's time to level up.
+To outfit the California off-road tribe with the best suspension, accessories, and modifications — and to do it as family. We set the standard. We convert dreams into reality. We make your truck drive as good as it looks. We stand behind our work with a 1-year no-questions-asked warranty. We Are LifeStyle Driven.
 
 ---
 
