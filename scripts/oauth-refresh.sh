@@ -14,13 +14,22 @@ LOG_FILE="$HOME/.claude/oauth-refresh.log"
 CLIENT_ID="9d1c250a-e61b-44d9-88ed-5944d1962f5e"
 TOKEN_URL="https://platform.claude.com/v1/oauth/token"
 SERVICES=(claudeclaw claudeclaw-research claudeclaw-comms claudeclaw-content claudeclaw-ops)
+NOTIFY_SCRIPT="$HOME/claudeclaw/scripts/notify.sh"
 
 log() {
   echo "[$(date -Iseconds)] $*" | tee -a "$LOG_FILE"
 }
 
+# Silent on success, audible on failure — pings Telegram if refresh breaks
+alert() {
+  if [ -x "$NOTIFY_SCRIPT" ]; then
+    "$NOTIFY_SCRIPT" "<b>⚠️ ClaudeClaw OAuth refresh FAILED</b>%0A%0A$1%0A%0ARun: <code>claude login</code> then <code>systemctl --user restart claudeclaw*.service</code>" || true
+  fi
+}
+
 if [ ! -f "$CRED_FILE" ]; then
   log "ERROR: credentials file missing at $CRED_FILE — run 'claude login' manually"
+  alert "Credentials file missing at $CRED_FILE"
   exit 1
 fi
 
@@ -93,6 +102,7 @@ NODE
 REFRESH_RC=$?
 if [ $REFRESH_RC -ne 0 ]; then
   log "ERROR: refresh failed (rc=$REFRESH_RC) — manual 'claude login' may be required"
+  alert "Refresh script exited with rc=$REFRESH_RC. Check log: $LOG_FILE"
   exit $REFRESH_RC
 fi
 
