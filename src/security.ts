@@ -154,8 +154,22 @@ export function executeEmergencyKill(): void {
         }
       } catch { /* launchctl failed, still exit */ }
     } else if (os.platform() === 'linux') {
+      // Discover all running ClaudeClaw user services and stop them.
+      // Pattern-stop via wildcard is unreliable across systemd versions, so we
+      // enumerate explicitly. Handles the founding 5 agents plus any future
+      // agent added via scripts/onboard-agent.sh.
       try {
-        execSync('systemctl --user stop "com.claudeclaw.*" 2>/dev/null', { stdio: 'ignore', timeout: 3000 });
+        const out = execSync(
+          'systemctl --user list-units --state=running --type=service --no-legend --plain',
+          { encoding: 'utf-8', timeout: 3000 },
+        );
+        const services = out
+          .split('\n')
+          .map((l) => l.trim().split(/\s+/)[0])
+          .filter((name) => name.startsWith('claudeclaw') && name.endsWith('.service'));
+        if (services.length > 0) {
+          execSync(`systemctl --user stop ${services.join(' ')}`, { stdio: 'ignore', timeout: 5000 });
+        }
       } catch { /* ok */ }
     } else if (os.platform() === 'win32') {
       // Enumerate scheduled tasks matching com.claudeclaw.* and end each one.
