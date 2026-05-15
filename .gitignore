@@ -120,3 +120,6 @@ agents/*/agent.yaml.backup
 # CWDs (sub-agents start with cwd=agents/<id>).
 .claude/claudex/
 agents/*/.claude/claudex/
+
+# Generated basement-level PDF artifacts (regenerable from ARMY_MISSION.md + scripts/generate-basement-pdf.py)
+ARMY_MISSION_v*.pdf
