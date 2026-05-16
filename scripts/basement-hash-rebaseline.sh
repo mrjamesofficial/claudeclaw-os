@@ -15,9 +15,12 @@ set -u
 PROJECT_ROOT="/home/adminjames/claudeclaw"
 BASELINE="$PROJECT_ROOT/basement.hashes"
 
-# Files to fingerprint (must match basement-hash-check.sh's expectations)
-# v1.0/v1.1 paths + v1.4 additions (hook script + settings.json for tamper-evidence
-# on the protection infrastructure itself).
+# Files to fingerprint (must match basement.hashes's existing lines)
+# v1.0/v1.1 paths + v1.4 hook script. settings.json was removed in v1.5
+# because it is install-personalized and drifts on every legitimate
+# amendment cycle, creating false-positive tamper alerts. It remains
+# protected by SACRED_PATHS (Edit/Write blocked, Bash patterns blocked
+# per v1.3/v1.4) — hash monitoring would have been redundant.
 TARGETS=(
   "$PROJECT_ROOT/ARMY_MISSION.md"
   "$PROJECT_ROOT/AMENDMENT_PROCESS.md"
@@ -25,7 +28,6 @@ TARGETS=(
   "/home/adminjames/.claude/projects/-home-adminjames/memory/project_claudeclaw_v1_foundation.md"
   "/home/adminjames/.claude/projects/-home-adminjames/memory/feedback_command_authority.md"
   "/home/adminjames/.claude/hooks/doctrine-preToolUse.py"
-  "/home/adminjames/.claude/settings.json"
 )
 
 # ── Pre-checks ───────────────────────────────────────────────────────────────

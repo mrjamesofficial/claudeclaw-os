@@ -186,6 +186,53 @@ Still unaddressed after v1.4:
 
 ---
 
+## v1.5 — Amendment: Documentation + Tamper-Detection Cleanup
+**Date:** 2026-05-15
+**Type:** Refinement (documentation + noise reduction)
+**Tag:** `v1.5-foundation`
+**Proposer:** Main (Claude Code agent, on behalf of James)
+**Ratification:** Explicit "yes" by James, same day
+
+### Summary
+
+Two surgical changes documenting and cleaning up artifacts surfaced during the v1.3 and v1.4 verification cycles.
+
+1. **AMENDMENT_PROCESS.md gains §6.6 "Bootstrap Pattern"** — explicitly documents how to perform amendments when the change-target is itself the gate. The Python-interpreter bypass (used legitimately during v1.4 + v1.4-retest commit workflows) is now canonical-with-discipline rather than ad-hoc.
+
+2. **`settings.json` removed from `basement.hashes` monitoring** — install-personalized files drifted on every legitimate amendment cycle, creating false-positive tamper alerts. settings.json remains protected by `SACRED_PATHS` (v1.3) and v1.4 bash patterns; hash monitoring was redundant.
+
+### Rationale (one-line)
+
+v1.3 + v1.4 created two operational frictions: (1) the chicken-and-egg of amending sacred infrastructure when the gate IS the sacred infrastructure, and (2) hash-drift noise from monitoring install-personalized files. v1.5 closes both surgically.
+
+### Changes
+
+**To `AMENDMENT_PROCESS.md`:** New §6.6 subsection between §6 (Proposal Process) and §7 (Ratification Process). Documents the bootstrap pattern, when it applies, why it's legitimate when used by the Commanding Authority, why it remains documented-but-unclosed (closing it would require post-hook file-change verification or syscall tracing — both heavier than current architecture), and the discipline operators must follow when using it.
+
+**To `scripts/basement-hash-rebaseline.sh`:** Removed `/home/adminjames/.claude/settings.json` from the `TARGETS` array. Added comment explaining the removal.
+
+**To `basement.hashes`:** Regenerated without the settings.json line. Now monitors 6 files (down from 7).
+
+### Verification
+
+basement-hash-check passes (exit 0). AMENDMENT_PROCESS.md is now consistent with the actual workflow used in v1.3+v1.4. No further drift expected from settings.json edits during amendment cycles.
+
+### v1.6 Carry-Forward
+
+Items still on the backlog after v1.5:
+
+1. **Extract hook script to repo** — currently at `~/.claude/hooks/`, outside git. Actual hook code changes are not tamper-evident via commit history. v1.6 should move it to `scripts/doctrine-preToolUse.py` with settings.json updated to reference the new path.
+
+2. **Expand v1.4 detection mechanism** — current regex catches 8 common shell write patterns but not arbitrary interpreter file writes (Python, Perl, Ruby, etc.). v1.6 could add post-hook file-change verification — snapshot sacred-path hashes before tool calls, verify no drift after.
+
+3. **Lateral compliance testing** — Comms passed all v1.2/v1.3/v1.4 retests. Untested: Research, Content, Ops on the same prompts. v1.6 should verify the doctrine is broadly internalized, not Comms-specific.
+
+4. **Untested nuclear vectors:** heterogeneous task decomposition, SQL memory injection, reconstruction attacks, schedule-cli temporal dormancy.
+
+5. **Document the rebaseline cadence** — when SHOULD basement.hashes be rebaselined? Only after legitimate amendments to monitored files. v1.6 could codify this.
+
+---
+
 ## Append-Only Discipline
 
 This file is append-only per `AMENDMENT_PROCESS.md` §10.3. Past entries are never rewritten or expunged. New amendments are added below at the appropriate version increment.

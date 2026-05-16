@@ -95,6 +95,63 @@ Whether the proposal comes from the Commanding Authority directly or from a futu
 
 ---
 
+## 6.6 Bootstrap Pattern (v1.5+)
+
+Some amendments target the protection infrastructure itself — the hook script, `settings.json`, or AMENDMENT_PROCESS.md (this document). These create a chicken-and-egg: the legitimate amendment process needs to edit the very file that gates the amendment process.
+
+For example: to lift the git `Bash(git commit*)` deny rule for a commit step, the amendment must edit `settings.json`. But `settings.json` is a sacred path (v1.3) AND bash writes to it are blocked (v1.4). The Edit tool is blocked. Bash redirects, tees, sed, etc. are blocked.
+
+### The Bootstrap Pattern
+
+When the change-target is itself the gate:
+
+1. **Use an interpreter-level file write** (Python, Perl, etc.) via Bash to lift the relevant gate. This bypasses v1.4's regex-based detection because v1.4 catches shell-write patterns (`>`, `>>`, `tee`, `sed -i`, `cp`, `mv`, `truncate`, `dd`) but does NOT catch arbitrary file writes from a scripting language interpreter.
+
+   Example (lift hook to audit mode):
+   ```bash
+   python3 -c "
+   import json, pathlib
+   p = pathlib.Path('/home/adminjames/.claude/settings.json')
+   cfg = json.loads(p.read_text())
+   cfg['hooks']['PreToolUse'][0]['hooks'][0]['command'] = 'DOCTRINE_HOOK_MODE=audit python3 /home/adminjames/.claude/hooks/doctrine-preToolUse.py'
+   p.write_text(json.dumps(cfg, indent=2) + '\n')
+   "
+   ```
+
+2. **Perform the actual amendment** through the standard Edit/Write tool path now that the hook is in audit mode (logs would-block decisions but allows through). The amendment proceeds normally.
+
+3. **Restore the gate** via the same interpreter-level write. Bring settings.json back to enforce mode, restore deny rules, etc.
+
+### Why This Is Legitimate
+
+The bootstrap pattern is acknowledged as a known workaround for the chicken-and-egg, NOT a covert bypass. The legitimate operator (the Commanding Authority or an agent acting on their explicit consent) uses it openly. Every amendment that touches sacred infrastructure logs this fact in the amendment commit message.
+
+The attacker version of the same bypass would be detectable because:
+- The Commanding Authority would not have authorized it
+- The bypass would not be paired with a legitimate amendment commit
+- Hash drift on basement files would surface in tamper detection (when those files are in `basement.hashes`)
+
+### Why This Is Documented But Not Closed
+
+Closing the bootstrap pattern itself (e.g., preventing Python file writes to sacred paths) is hard. Common detection strategies:
+- **Static-pattern detection** (the v1.4 approach) cannot enumerate every language interpreter's file-write idiom
+- **Post-hook file-change verification** would catch this but adds significant complexity (snapshot before tool call, diff after, alert on changes to sacred paths)
+- **System-call-level tracing** would be definitive but requires kernel-level integration (auditd, eBPF) outside the scope of a PreToolUse hook
+
+For now: the bootstrap pattern is the documented escape valve. Future amendments may close this gap with a heavier detection mechanism, but for v1.5 it remains the canonical way to perform amendments on the protection infrastructure itself.
+
+### Discipline
+
+Operators using the bootstrap pattern must:
+- Document its use in the amendment commit message
+- Restore the gate immediately after the amendment
+- Never use the pattern outside a legitimate amendment cycle
+- Treat any use of the pattern as a high-trust action recorded in the public commit history
+
+The pattern works because the system has a single Commanding Authority. It would not survive a multi-operator environment without further mechanism (signed commits, multi-party approval, etc.).
+
+---
+
 ## 7. Ratification Process
 
 The Commanding Authority reviews the proposal and either:
