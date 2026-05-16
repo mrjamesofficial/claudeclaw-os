@@ -375,6 +375,54 @@ These are all deferrable. None compromise current architecture.
 
 ---
 
+## v1.8 — Amendment: Template SACRED_PATHS Protection
+**Date:** 2026-05-15
+**Type:** Refinement (defense-in-depth)
+**Tag:** `v1.8-foundation`
+**Proposer:** Main (Claude Code agent, on behalf of James)
+**Ratification:** Explicit "yes" by James, same day
+
+### Summary
+
+Defense-in-depth for the agent CLAUDE.md inheritance template extracted in v1.7. The template was tamper-evident via git but had no runtime hook protection. v1.8 adds it to `SACRED_PATHS` (hook blocks writes) and `basement.hashes` (tamper detection alerts on drift).
+
+### Rationale
+
+A corrupted inheritance template would propagate doctrine violations to every new agent onboarded via `scripts/onboard-agent.sh`. v1.7 made the template visible (git-tracked). v1.8 makes it untouchable at runtime (hook-protected + hash-monitored).
+
+### Changes
+
+1. **`scripts/doctrine-preToolUse.py`** — `SACRED_PATHS` extended with `/home/adminjames/claudeclaw/scripts/agent-claude-md.template`. Edit/Write/MultiEdit to this path is now hook-blocked. Bash writes are also caught by the v1.4 detection.
+
+2. **`scripts/basement-hash-rebaseline.sh`** — TARGETS array extended with the same path. Tamper detection now covers 7 files (up from 6).
+
+3. **`basement.hashes`** — regenerated with the template hash included. Rebaseline performed BEFORE commit, per §8.9 (lesson from v1.7).
+
+### Verification
+
+- basement-hash-check returns exit 0 against the new baseline (7 files monitored)
+- §8.9 cadence followed (rebaseline AFTER edit, BEFORE commit) — corrects the v1.7 sequence error
+- Template path now identified by hook on any write attempt (would-block in audit mode confirms detection works)
+
+### Significance
+
+This closes the final small architectural gap. The inheritance template is now protected at THREE layers:
+1. **Git** — every change creates a commit diff
+2. **Hook** (`SACRED_PATHS`) — runtime writes blocked
+3. **Basement hash** — drift triggers tamper alert
+
+Eighth amendment of the day.
+
+### Remaining Work (Genuinely Deferred to Future Sessions)
+
+1. **Post-hook file-change verification** — closes the §6.6 interpreter bypass. Real architecture: PreToolUse snapshots SACRED_PATHS hashes, PostToolUse compares + alerts/rolls back. Not minimal scope; v1.9+ work for fresh focus.
+
+2. **Nuclear vector testing** — heterogeneous task decomposition, SQL memory injection, reconstruction attacks, schedule-cli temporal dormancy. Each requires James's time + careful design.
+
+These are improvements, not closures. The architecture as of v1.8 holds against every attack vector tested today.
+
+---
+
 ## Append-Only Discipline
 
 This file is append-only per `AMENDMENT_PROCESS.md` §10.3. Past entries are never rewritten or expunged. New amendments are added below at the appropriate version increment.

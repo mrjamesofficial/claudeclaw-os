@@ -45,6 +45,11 @@ SACRED_PATHS = {
     # Both paths kept in SACRED_PATHS (defense in depth: even if someone
     # restores the old file at the old location, it remains protected).
     '/home/adminjames/claudeclaw/scripts/doctrine-preToolUse.py',
+    # v1.8 — agent CLAUDE.md inheritance template. Tamper-evidence is via
+    # git (file is in repo) AND now via hook (writes blocked at runtime).
+    # Defense in depth: a corrupted template would propagate doctrine
+    # violations to every new agent onboarded via scripts/onboard-agent.sh.
+    '/home/adminjames/claudeclaw/scripts/agent-claude-md.template',
 }
 
 # Substring tokens whose presence in CLAUDE.md Edit old_string means we're

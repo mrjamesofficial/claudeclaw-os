@@ -31,6 +31,9 @@ TARGETS=(
   # at ~/.claude/hooks/ remains on disk as backup but is no longer tracked
   # for tamper-detection since it's dormant after the v1.6 extraction.
   "$PROJECT_ROOT/scripts/doctrine-preToolUse.py"
+  # v1.8 — agent CLAUDE.md inheritance template (extracted from
+  # onboard-agent.sh in v1.7). Tamper-evidence in git + at hook + via hash.
+  "$PROJECT_ROOT/scripts/agent-claude-md.template"
 )
 
 # ── Pre-checks ───────────────────────────────────────────────────────────────
