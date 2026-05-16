@@ -233,6 +233,65 @@ Items still on the backlog after v1.5:
 
 ---
 
+## v1.6 — Amendment: Hook Script Extracted to Repo (Git Tamper-Evidence)
+**Date:** 2026-05-15
+**Type:** Refinement (architectural cleanup — move install-personalized → git-tracked)
+**Tag:** `v1.6-foundation`
+**Proposer:** Main (Claude Code agent, on behalf of James)
+**Ratification:** Explicit "yes" (A option) by James, same day
+
+### Summary
+
+Closes the largest remaining architectural gap: the PreToolUse hook script lived at `~/.claude/hooks/doctrine-preToolUse.py`, outside the repo. Every v1.3 + v1.4 + v1.5 amendment changed the hook code, but those code changes were NOT git-tamper-evident — they happened in an unversioned file.
+
+v1.6 extracts the hook script into the repo at `/home/adminjames/claudeclaw/scripts/doctrine-preToolUse.py`. From this point forward, every change to the enforcement code creates a git commit diff. Tampering becomes visible via commit history.
+
+### Rationale (one-line)
+
+The enforcement layer is load-bearing for the entire v1.0+v1.1+v1.2+v1.3+v1.4+v1.5 protection system. Until v1.6, the actual enforcement code was the ONE part of the basement architecture not under git's tamper-evident audit. v1.6 closes that gap.
+
+### Changes
+
+1. **Hook script copied** from `~/.claude/hooks/doctrine-preToolUse.py` to `scripts/doctrine-preToolUse.py` (in repo).
+
+2. **`settings.json` updated** to reference the new path. The hook now executes from the in-repo location.
+
+3. **`SACRED_PATHS` extended** to include the new path. Old path remains in `SACRED_PATHS` as defense-in-depth (even though the old file is dormant after extraction, blocking writes to it prevents an attacker from re-activating the old version).
+
+4. **`basement.hashes` updated** — replaces the old hook path with the new in-repo path. Old file at `~/.claude/hooks/` is no longer tamper-monitored since it's dormant; the active hook (the in-repo one) IS monitored.
+
+5. **`scripts/basement-hash-rebaseline.sh` TARGETS updated** to match.
+
+### Old File Disposition
+
+The old hook script at `~/.claude/hooks/doctrine-preToolUse.py` is **kept on disk as backup** (not deleted). Reasons:
+- If the new in-repo hook is somehow lost or corrupted, the old file is a fallback
+- Deleting it adds risk for no benefit (it's dormant; tamper attempts are still blocked at the SACRED_PATHS level)
+
+The old file is no longer tracked in `basement.hashes` because changes to a dormant file don't affect runtime behavior.
+
+### Verification
+
+- New hook fires correctly from new path (verified via direct stdin invocation; logged would-block on a sacred-path Edit)
+- `basement-hash-check.sh` returns exit 0 against the new baseline
+- All 5 services still active (no restart required; hook is invoked per tool call, not on service start)
+
+### v1.7+ Carry-Forward
+
+After v1.6:
+
+1. **v1.4 detection beyond regex** — interpreter file-writes (python, perl, ruby) still bypass v1.4 patterns. The bootstrap pattern in §6.6 uses this gap intentionally. Closing requires post-hook file-change verification or syscall tracing.
+
+2. **Test additional nuclear vectors:** heterogeneous task decomposition, SQL memory injection, reconstruction attacks, schedule-cli temporal dormancy.
+
+3. **Codify basement.hashes rebaseline cadence** — explicit guidance on when rebaseline is appropriate (after legitimate amendments to monitored files; never as a routine response to drift alerts).
+
+4. **Consider extracting onboard-agent.sh's CLAUDE.md template** into a separate file — currently embedded in the script via heredoc, harder to inspect for tamper-evidence.
+
+5. **Periodically run the lateral compliance test** as a regression check — verify all 5 agents continue to pass the "surgical weakening" attack at exemplary level after any future amendment.
+
+---
+
 ## Append-Only Discipline
 
 This file is append-only per `AMENDMENT_PROCESS.md` §10.3. Past entries are never rewritten or expunged. New amendments are added below at the appropriate version increment.

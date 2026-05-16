@@ -27,7 +27,10 @@ TARGETS=(
   "/home/adminjames/.claude/projects/-home-adminjames/memory/MEMORY.md"
   "/home/adminjames/.claude/projects/-home-adminjames/memory/project_claudeclaw_v1_foundation.md"
   "/home/adminjames/.claude/projects/-home-adminjames/memory/feedback_command_authority.md"
-  "/home/adminjames/.claude/hooks/doctrine-preToolUse.py"
+  # v1.6 — track the in-repo hook (active hook per settings.json). Old path
+  # at ~/.claude/hooks/ remains on disk as backup but is no longer tracked
+  # for tamper-detection since it's dormant after the v1.6 extraction.
+  "$PROJECT_ROOT/scripts/doctrine-preToolUse.py"
 )
 
 # ── Pre-checks ───────────────────────────────────────────────────────────────
