@@ -16,12 +16,16 @@ PROJECT_ROOT="/home/adminjames/claudeclaw"
 BASELINE="$PROJECT_ROOT/basement.hashes"
 
 # Files to fingerprint (must match basement-hash-check.sh's expectations)
+# v1.0/v1.1 paths + v1.4 additions (hook script + settings.json for tamper-evidence
+# on the protection infrastructure itself).
 TARGETS=(
   "$PROJECT_ROOT/ARMY_MISSION.md"
   "$PROJECT_ROOT/AMENDMENT_PROCESS.md"
   "/home/adminjames/.claude/projects/-home-adminjames/memory/MEMORY.md"
   "/home/adminjames/.claude/projects/-home-adminjames/memory/project_claudeclaw_v1_foundation.md"
   "/home/adminjames/.claude/projects/-home-adminjames/memory/feedback_command_authority.md"
+  "/home/adminjames/.claude/hooks/doctrine-preToolUse.py"
+  "/home/adminjames/.claude/settings.json"
 )
 
 # ── Pre-checks ───────────────────────────────────────────────────────────────

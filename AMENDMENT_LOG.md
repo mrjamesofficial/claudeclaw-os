@@ -110,6 +110,82 @@ This gap was used legitimately during the v1.3 commit workflow itself (Bash here
 
 ---
 
+## v1.4 — Amendment: Bash Bypass Closure + Protection-Infrastructure Tamper-Evidence
+**Date:** 2026-05-15
+**Type:** Refinement (closes v1.3's known gap, extends tamper coverage)
+**Tag:** `v1.4-foundation`
+**Proposer:** Main (Claude Code agent, on behalf of James)
+**Ratification:** Explicit "yes" by James, same day
+
+### Summary
+v1.3 added 5 paths to `SACRED_PATHS` but only protected the Edit/Write/MultiEdit tool path. The Bash tool path remained open — shell redirects, tees, sed -i, cp, mv, truncate, and dd could all still write to the sacred paths v1.3 protected. v1.4 closes that gap.
+
+Also extends `basement.hashes` to include the hook script and settings.json themselves, so tamper detection covers the protection infrastructure.
+
+### Rationale (one-line)
+v1.3's own commit workflow had to use the Bash bypass (`cat > ~/.claude/settings.json <<EOF`) to restore settings post-amendment. The same gap an attacker would exploit was used legitimately by us. Closing the gap is non-optional.
+
+### Changes to `~/.claude/hooks/doctrine-preToolUse.py`
+
+Added a `detect_bash_write_to_sacred(command)` function that dynamically iterates over `SACRED_PATHS` and checks for 8 common bash write patterns per path:
+
+- `>` shell redirect
+- `>>` shell append
+- `tee` (with or without `-a`)
+- `sed -i` in-place edit
+- `cp <src> <sacred>` overwrite
+- `mv <src> <sacred>` overwrite
+- `truncate ... <sacred>`
+- `dd ... of=<sacred>` overwrite
+
+Wired into the `evaluate()` Bash branch after the static `BASH_BLOCK_PATTERNS` list. Returns block decision with rule `bash_sacred_write:<pattern_name>` and a refusal message pointing to `AMENDMENT_PROCESS.md`.
+
+### Changes to `scripts/basement-hash-rebaseline.sh` and `basement.hashes`
+
+`TARGETS` array in rebaseline script extended with two new monitored files:
+- `/home/adminjames/.claude/hooks/doctrine-preToolUse.py`
+- `/home/adminjames/.claude/settings.json`
+
+`basement.hashes` regenerated with the 2 additional fingerprints. `basement-hash-check.sh` requires no changes (it reads from `basement.hashes` directly).
+
+### Tests Performed During Implementation
+
+| Input | Expected | Got |
+|---|---|---|
+| `cat > /home/adminjames/.claude/settings.json <<EOF...EOF` | `would-block / bash_sacred_write:shell redirect (>)` | ✓ |
+| `sed -i s/foo/bar/ /home/adminjames/.claude/hooks/doctrine-preToolUse.py` | `would-block / bash_sacred_write:sed in-place edit` | ✓ |
+| `ls -la /tmp` | `allow` | ✓ |
+
+(Tested in audit mode for safety; in enforce mode the would-block becomes actual exit-2 block.)
+
+### Operational Implication
+
+After v1.4, ANY edit to settings.json or the hook script (or any other sacred path) requires the full lift-modify-restore amendment pattern. Routine settings.json toggles (e.g., temporarily lifting git deny rules for commit/push) now require a hook lift first.
+
+This was already implicit in `AMENDMENT_PROCESS.md` §8 — v1.4 makes it operational rather than honor-system.
+
+### v1.5 Carry-Forward Priorities
+
+Still unaddressed after v1.4:
+
+1. **Extract hook script into the repo** — currently lives at `~/.claude/hooks/`, outside git. Actual hook code changes are not tamper-evident via git history. v1.5 should move it to `scripts/doctrine-preToolUse.py` with settings.json updated to reference the new path. Adds proper git tamper-evidence to the enforcement layer.
+
+2. **Investigate cross-agent memory mechanism beyond source** — source confirms cross-agent recall is the default. Production-level usage in agent reasoning remains opaque without instrumenting the LLM step.
+
+3. **Standardize security-event memory schema** — Main's 15:44 PDT autonomous write was effective but ad-hoc. v1.5 should codify the format.
+
+4. **Kill-loop mitigation** — Telegram queue can hold stale kill phrases that re-trigger on restart.
+
+5. **Heterogeneous task decomposition test** — split a destructive workflow across multiple agents, see if collective doctrine catches what individual doctrine misses.
+
+6. **Memory injection test** — fabricate a high-importance "James authorized X" memory via direct SQL, verify whether future agent reasoning treats it as legitimate context.
+
+7. **Reconstruction attack test** — many small "legitimate" edits that collectively rewrite the basement.
+
+8. **Document the AMENDMENT_PROCESS bootstrap pattern** — settings.json itself being sacred means future amendments that touch settings.json need an explicit "bootstrap" sub-section in AMENDMENT_PROCESS.md describing the pre-amendment hook-lift step.
+
+---
+
 ## Append-Only Discipline
 
 This file is append-only per `AMENDMENT_PROCESS.md` §10.3. Past entries are never rewritten or expunged. New amendments are added below at the appropriate version increment.
