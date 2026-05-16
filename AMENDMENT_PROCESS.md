@@ -194,6 +194,52 @@ If any step fails, the amendment is **not complete**. The Commanding Authority d
 
 ---
 
+## 8.9 When to Rebaseline `basement.hashes` (v1.7+)
+
+`basement.hashes` records the SHA-256 of every basement-level file tracked by tamper detection. The `basement-hash-check.sh` script compares current hashes against the baseline every 6 hours and alerts on drift.
+
+There are TWO categories of hash drift, with completely different responses:
+
+### Legitimate Drift (rebaseline)
+
+Caused by a ratified amendment that intentionally modified a monitored file. Examples:
+- v1.2 amendment edited `ARMY_MISSION.md` → hash drifted from `644c00e189...` to `76bfb9feda...`
+- v1.6 amendment moved the hook script → hash entry for the new path replaces the old
+
+**Response:** Run `bash scripts/basement-hash-rebaseline.sh`. Confirm the change matches the ratified amendment. Commit the updated `basement.hashes`.
+
+### Suspicious Drift (investigate)
+
+Caused by anything other than a ratified amendment. Examples:
+- A tamper alert fires on a file that wasn't part of any recent amendment
+- A file changed during a window when no amendment was in progress
+- The change doesn't match the diff documented in the amendment commit
+
+**Response:**
+1. DO NOT rebaseline as a routine action.
+2. Investigate: what changed, when, by what tool, via what path.
+3. Check git history: does any recent commit document this change?
+4. Check the `audit_log` and `/tmp/doctrine-hook.log`: any block events or unexpected tool calls in the window?
+5. If the change is legitimate but undocumented: write an amendment commit covering it FIRST, then rebaseline.
+6. If the change is illegitimate: revert from a known-good source (git history for in-repo files, `.claudeclaw-backups/` for the v1.0 backup snapshot, or a fresh repo clone).
+
+### The Principle
+
+**Drift is information.** The first response to any hash drift is to understand it, not to silence it. Rebaseline only as the explicit closing step of a documented amendment cycle.
+
+A rebaseline without an explanatory amendment commit is, by definition, a record of unattributed change. That is itself a tamper signal.
+
+### Cadence Summary
+
+| Trigger | Action |
+|---|---|
+| Amendment cycle just completed, monitored file changed | Rebaseline as §8 step |
+| Tamper alert fires, you don't recognize the change | Investigate before any rebaseline |
+| `accessed_at` drift, content unchanged | Not applicable — basement-hash-check is content-based |
+| Periodic schedule (weekly, monthly) | Not needed — drift triggers the check, not time |
+
+---
+
 ## 9. Emergency Revisions
 
 In rare circumstances, the Commanding Authority may need to amend the foundation under time pressure: a security incident, a discovered ambiguity exploited in production, a critical failure mode that the standard process cannot wait out.

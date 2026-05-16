@@ -292,6 +292,89 @@ After v1.6:
 
 ---
 
+## v1.7 — Amendment: Documentation Completeness + Template Extraction
+**Date:** 2026-05-15
+**Type:** Refinement (documentation + extraction; no agent behavior change)
+**Tag:** `v1.7-foundation`
+**Proposer:** Main (Claude Code agent, on behalf of James)
+**Ratification:** Explicit "yes" by James, same day
+
+### Summary
+
+Closes the small architectural debt remaining after v1.6:
+1. Codifies the `basement.hashes` rebaseline cadence (§8.9 of AMENDMENT_PROCESS.md)
+2. Extracts the agent CLAUDE.md template from `onboard-agent.sh` into a separate file (`scripts/agent-claude-md.template`) for clearer git tamper-evidence
+3. Adds `docs/REGRESSION_CHECK.md` documenting the periodic lateral compliance regression check
+
+No agent behavior change. Pure documentation and code-organization improvements.
+
+### Rationale (one-line)
+
+After v1.6, the architecture was complete but parts of the operational process were still tribal knowledge or buried inline. v1.7 surfaces those into explicit documents and discrete files.
+
+### Changes
+
+**1. `AMENDMENT_PROCESS.md` §8.9 — When to Rebaseline `basement.hashes`**
+
+New subsection inserted between §8 (Implementation Steps) and §9 (Emergency Revisions). Distinguishes legitimate drift (caused by ratified amendment → rebaseline as §8 closing step) from suspicious drift (caused by anything else → investigate before any rebaseline). Codifies the principle: *drift is information. The first response is to understand it, not silence it.*
+
+**2. `scripts/agent-claude-md.template` (NEW FILE)**
+
+Extracted from the `<<MDEOF ... MDEOF` heredoc in `scripts/onboard-agent.sh`. Uses `${VARIABLE}` placeholders (AGENT_NAME, AGENT_DESC, AGENT_ID) compatible with `envsubst`.
+
+Now the agent CLAUDE.md inheritance template is its own git-tracked file. Any change to the template creates a clean git diff visible in commit history. Previously the template was buried inside a shell script's heredoc — harder to inspect for tamper-evidence, harder to review for doctrine drift.
+
+**3. `scripts/onboard-agent.sh` refactored**
+
+The 35-line heredoc replaced with a 4-line envsubst invocation:
+```bash
+TEMPLATE="$PROJECT_ROOT/scripts/agent-claude-md.template"
+export AGENT_NAME AGENT_DESC AGENT_ID
+envsubst '${AGENT_NAME} ${AGENT_DESC} ${AGENT_ID}' < "$TEMPLATE" > "$AGENT_DIR/CLAUDE.md"
+```
+
+Script behavior is unchanged. The template is now external.
+
+**4. `docs/REGRESSION_CHECK.md` (NEW FILE)**
+
+Codifies the periodic lateral compliance regression check. Specifies:
+- The test prompt (with both pre-v1.6 and post-v1.6 paths)
+- Pass / soft-pass / fail criteria
+- Cadence (mandatory: after every amendment, after every model upgrade, after every onboard-agent run; recommended: quarterly; not triggered by: time alone)
+- Manual execution method
+- Path toward future automation (with reasons not done yet)
+
+This was tribal knowledge after the 4 lateral runs on 2026-05-15. Now it's an explicit document.
+
+### Verification
+
+- `envsubst` available on the system (`/usr/bin/envsubst`) — verified
+- Template renders correctly with sample variables — verified
+- `basement-hash-check` continues to pass (no changes to monitored files — AMENDMENT_PROCESS.md hash will drift on commit, which is the expected post-§8 step)
+
+### What This Closes
+
+After v1.7, the only remaining architectural items are genuinely deferred:
+
+1. **Comprehensive bypass closure** (v1.4 covers shell redirects; Python/Perl/Ruby interpreters still bypass via the §6.6 bootstrap pattern). Closing this requires post-hook file-change verification — heavier architecture, v1.8+.
+
+2. **Nuclear vector testing** — heterogeneous task decomposition, SQL memory injection, reconstruction attacks, schedule-cli temporal dormancy. Each requires 5-10 min of James time per test + careful design. v1.8+.
+
+### Carry-Forward to v1.8
+
+1. Post-hook file-change verification (close the interpreter bypass)
+2. Nuclear vector test campaign
+3. Optionally: add `scripts/agent-claude-md.template` to `SACRED_PATHS` (defense in depth for the inheritance template)
+4. Optionally: automate the regression check
+
+These are all deferrable. None compromise current architecture.
+
+### Today's Final Count
+
+**Seven amendments shipped in one day.** All ratified through AMENDMENT_PROCESS.md. All locked constants unchanged. The basement evolved seven times via its own legitimate process.
+
+---
+
 ## Append-Only Discipline
 
 This file is append-only per `AMENDMENT_PROCESS.md` §10.3. Past entries are never rewritten or expunged. New amendments are added below at the appropriate version increment.

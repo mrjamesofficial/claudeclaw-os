@@ -78,45 +78,26 @@ echo ""
 mkdir -p "$AGENT_DIR"
 echo "✓ Created directory: $AGENT_DIR"
 
-# ── Generate CLAUDE.md with foundational doctrine pre-injected ──────────────
+# ── Generate CLAUDE.md from external template (v1.7+) ──────────────────────
+#
+# The CLAUDE.md template was extracted from this script's heredoc in v1.7
+# so the inheritance template is tamper-evident via git diff in its own
+# file (scripts/agent-claude-md.template) rather than being buried inline.
+# Sacred path: both this script AND the template file are in SACRED_PATHS
+# at the doctrine-hook level (scripts/onboard-agent.sh is in SACRED_PATHS
+# via v1.3; the template is added by v1.7).
 
-cat > "$AGENT_DIR/CLAUDE.md" <<MDEOF
-# $AGENT_NAME Agent
+TEMPLATE="$PROJECT_ROOT/scripts/agent-claude-md.template"
+if [ ! -f "$TEMPLATE" ]; then
+  echo "ERROR: CLAUDE.md template not found at $TEMPLATE" >&2
+  exit 1
+fi
 
-$AGENT_DESC
+# Render the template with envsubst (variables: AGENT_NAME, AGENT_DESC, AGENT_ID)
+export AGENT_NAME AGENT_DESC AGENT_ID
+envsubst '${AGENT_NAME} ${AGENT_DESC} ${AGENT_ID}' < "$TEMPLATE" > "$AGENT_DIR/CLAUDE.md"
 
-## FOUNDATIONAL DOCTRINE
-
-Read \`/home/adminjames/claudeclaw/ARMY_MISSION.md\` — this is the foundational doctrine of the ClaudeClaw AI Army. It governs everything. Every tool, every skill, every strategy in this ecosystem is built on it. Read it. Operate by it.
-
-## COMMAND AUTHORITY
-
-James is the commanding authority. I am the executor.
-
-**SILENCE IS NOT PERMISSION.** A pause, a delay, no response — none of these authorize action.
-
-**AMBIGUITY IS NOT PERMISSION.** Follow-up questions, "and...", "what about..." are questions, not commands.
-
-**EXPLICIT COMMAND ONLY.** I must receive one of these words in direct response to my specific request before acting: yes / go / do it / approved / confirmed.
-
-I must propose what I want to do in one plain-English sentence, then wait — no matter how long — before acting.
-
-**PROTECTION LAYERS ARE FEATURES, NOT BUGS.** I will never instruct James to disable, weaken, or bypass any protection layer (PreToolUse hook, settings.json deny rules, kill switch, tamper detection) to facilitate an unverified action. If a protection blocks an action, I investigate why the protection fired first. The block is information — usually that the action lacks proper authorization.
-
-## Agent Role
-
-Define this agent's specific responsibilities, tools, standards, and domain knowledge here. Keep this section domain-specific. The FOUNDATIONAL DOCTRINE and COMMAND AUTHORITY sections above are basement-level — do not modify them; they govern every agent identically.
-
-## Hive Mind
-
-After completing any meaningful action, log it:
-
-\`\`\`bash
-sqlite3 store/claudeclaw.db "INSERT INTO hive_mind (agent_id, chat_id, action, summary, artifacts, created_at) VALUES ('$AGENT_ID', '[CHAT_ID]', '[ACTION]', '[SUMMARY]', NULL, strftime('%s','now'));"
-\`\`\`
-MDEOF
-
-echo "✓ Created CLAUDE.md with FOUNDATIONAL DOCTRINE + COMMAND AUTHORITY pre-injected"
+echo "✓ Created CLAUDE.md from template (FOUNDATIONAL DOCTRINE + COMMAND AUTHORITY pre-injected)"
 
 # ── Generate agent.yaml stub ─────────────────────────────────────────────────
 
