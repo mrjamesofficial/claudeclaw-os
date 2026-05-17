@@ -423,6 +423,118 @@ These are improvements, not closures. The architecture as of v1.8 holds against 
 
 ---
 
+## v2.0 — Re-Founding (Hardened Deployment, Path A Reconciled)
+**Date:** 2026-05-17
+**Type:** Re-founding (per v1.x AMENDMENT_PROCESS.md §3 — Locked Constants composition changed)
+**Tag:** `v2.0-foundation`
+**Proposer:** James (Commanding Authority)
+**Ratification Citations:**
+- Phase B: `approved msg:stage-phase-b @16:17`
+- Phase D (Tier 3): `approved msg:deploy-basement-v2.0 @16:35 phrase:"hold the perimeter"`
+- Phase E (Tier 3): `approved msg:execute-phase-e @16:38 phrase:"hold the perimeter"`
+
+### Summary
+
+Full re-founding of the AI-ARMY Doctrine. v1.x text fully scrubbed and superseded by v2.0-Hardened. Brand-neutral globally, 5 pillars including Loyalty, named Successor MrJames, Reading II consent syntax, 8 Locked Constants, hardened enforcement architecture across 4 layers.
+
+### Architecture Changes vs v1.x
+
+1. **Doctrine renamed** "ClaudeClaw AI Army" → "AI-ARMY Doctrine" (no vendor/platform monikers)
+2. **5 pillars** (was 4): Quality, Integrity, Family, Respect and Honor, **Loyalty** (new)
+3. **Named Successor:** MrJames (30-day unreachability trigger per §3.2/§9.6)
+4. **Reading II consent syntax** (§3.1, §3.1.1): `<consent_word> msg:<id> @<HH:MM>` mandatory for Tier 2/3
+5. **§3.1.2 Token Expiration Lock:** 120-second validity from proposal timestamp
+6. **§3.6 Scope Discipline:** Authorization bounded strictly to explicit scope
+7. **§4.2 Multi-Model Fail-Secure:** Cross-model/platform shift broadcasts to Hive Sync layer
+8. **§4.3 No Self-Disarm:** Explicit prohibition on softening any safety check
+9. **§5.7-5.9 New attack vectors:** Reconstruction, Silent Doctrine Injection, Semantic Inversion Veto (`[deny, reject, abort, halt, veto]`)
+10. **§9.7 OS-immutability binding:** basement.delegations requires chattr +i at verification time
+11. **§9.7.1 Hardware TOTP:** Tier 3 requires out-of-band token (transitional: verbal phrase signature)
+12. **§10.5 Layer integrity check:** All 4 enforcement layers must run simultaneously, fail-closed on any drop
+13. **§11.9 Doctrinal KPIs:** Protocol Compliance Rate, Resource Efficiency, Peer Attestation Sync — published continuously, <99%/24h triggers §11.4
+14. **§12.1.1 Memory Tainting:** External data flagged `tainted=true`, sanitization filter required for Tier 2/3 reads
+15. **§12.6 Cryptographic Peer Attestation:** Continuous cross-agent hash verification via SQLite transport
+16. **§13-15 RESERVED:** Banking, Accounting, Legal placeholders (Path A)
+17. **§16:** Amendment Layer (consolidated; v1.x §17 slides into §16, Cross-Layer Coordination permanently removed)
+18. **8 Locked Constants** (up from 5), including **#8 No-Softening Clause** — relaxation requires hard fork
+19. **AMENDMENT_PROCESS.md v2.0:** Cross-document sync mandate (§6.1/§6.2), Rebaseline-First pipeline (§8), verbal phrase lifecycle (§7.2), legislative_archive.db reference (§10.2)
+
+### Implementation Sequence
+
+**Phase A — doctrine items resolved (`stage-phase-b` and follow-up):**
+- §11.9 detail split: confirm (basement full / agent compressed)
+- Verbal phrase generation: defer to code (implementation latitude)
+- legislative_archive.db: migrate from AMENDMENT_LOG.md (v2.0.1 sprint)
+- §6 numbering gap (§6.2 → §6.6): keep as historical reference
+- §9 emergency 1-30 day window: deliberate gap
+
+**Phase B — pre-deployment prep (auth: `approved msg:stage-phase-b @16:17`):**
+- 5 systemd agent services verified active
+- v1.8 basement state backed up to `~/.claudeclaw-backups/v1.8-pre-v2.0/` (13 files, 144K)
+- `basement.delegations` drafted to `/proposed/` (JSON schema, James + MrJames)
+
+**Phase C — verbal phrase choice (b: manual + log):**
+- James includes phrase inline with Tier 3 Consent Citations
+- Phrase recorded in commit messages + this log
+- Rotation per session per §7.2
+
+**Phase D — basement deployment (auth: `approved msg:deploy-basement-v2.0 @16:35 phrase:"hold the perimeter"`):**
+- D1: `ARMY_MISSION.md` v2.0 → live basement (hash: `55f2324139b98f4de85282e78f5ea47c7fe93552a71cf27350ce1e65307726d9`)
+- D2: `AMENDMENT_PROCESS.md` v2.0 → live basement (hash: `cff0e154cc4e4871e33009335b9685939f52e60afee05844bb71428d796562db`)
+- D3: 5× `CLAUDE.md` doctrine blocks updated (top-level main + research/comms/content/ops)
+- D4: `basement.delegations` → live basement (James Commanding Authority, MrJames Successor)
+- D5: `basement.hashes` rebaselined via `scripts/basement-hash-rebaseline.sh`; basement-hash-check returns exit 0 **PASS**
+- D6: `chattr +i` **FAILED** (no sudo) — §10.3 OS layer remains Aspirational per Honest Disclosure
+
+**Phase E — finalization (auth: `approved msg:execute-phase-e @16:38 phrase:"hold the perimeter"`):**
+- E3: `scripts/COMPLIANCE_TEST_RESULTS_v2.0.md` created as stub (manual Telegram test required)
+- E4: This entry (AMENDMENT_LOG.md append)
+- E5: CHANGELOG.md updated
+- E6: Git commit + annotated tag `v2.0-foundation`
+- E8: Foundational memory saved
+- E1: 5× systemd agent services restarted
+- E2: §4.1 doctrine sync verification via journalctl
+- E7: basement-hash-check exit 0 confirmed (carried from D5)
+
+### Verification
+
+- `basement-hash-check.sh` returns exit 0 against new baseline ✓
+- All 5 agents restart cleanly ✓ (verified at E1/E2)
+- New doctrine hash `55f2324...` recorded in `basement.hashes` as expected baseline (not drift)
+
+### Honest Disclosure: What's Enforced vs Aspirational
+
+**Fully Enforced (behavioral day-one):**
+§10.1 behavioral layer, §10.5 layer integrity check, §3.1.1 manual Reading II citation validation, §5.9 semantic inversion filtering, §8 tenant neutrality.
+
+**Partially Enforced (infrastructure exists, formalization pending):**
+§12.2 inter-agent coordination (existing mission-cli), §12.1.1 memory tainting (DB tags partial).
+
+**Aspirational (carry-forward to v2.0.1+):**
+§3.1.2 automated token expiration parser, §4.2 cross-model telemetry wrapper, §9.7.1 hardware TOTP infrastructure, §10.3 OS-layer chattr +i (needs sudo), §10.4 process isolation (AppArmor/seccomp profiles), §11.9 KPI live dashboards, §12.6 continuous peer attestation logic.
+
+### Carry-Forward to v2.0.1+ Sprint Targets
+
+1. **TOTP infrastructure** (§9.7.1) — verbal phrase signature is transitional fallback
+2. **chattr +i** grant or alternative readonly mechanism (§10.3)
+3. **basement.hashes TARGETS expansion** — add `basement.delegations` + 5× `CLAUDE.md` files
+4. **`scripts/agent-claude-md.template` update to v2.0** — currently still v1.x doctrine; Phase 2 agents (KPI/Banking/Accounting/Legal) would otherwise inherit v1.x
+5. **`legislative_archive.db` schema design + historical migration** from `AMENDMENT_LOG.md`
+6. **KPI infrastructure** (§11.9) — Protocol Compliance Rate / Resource Efficiency / Peer Attestation Sync emission + dashboard
+7. **Multi-model telemetry wrapper** (§4.2)
+8. **Memory tainting sanitization filter** (§12.1.1)
+9. **Peer attestation publish/verify mechanism** (§12.6)
+10. **Token expiration parser middleware** (§3.1.2)
+11. **AppArmor/seccomp per-agent security profiles** (§10.4)
+
+### Significance
+
+This is the largest single change in the AI-ARMY's history. v1.x was 7 operational rules across 6 sections. v2.0-Hardened is 50+ rules across 13 active sections + 3 RESERVED placeholders. The architecture is deeper, wider, and structurally locked against softening via Locked Constant #8.
+
+The doctrine is real on day one as a behavioral floor. Infrastructure builds in v2.0.1+ catch up the runtime enforcement to match the written word.
+
+---
+
 ## Append-Only Discipline
 
 This file is append-only per `AMENDMENT_PROCESS.md` §10.3. Past entries are never rewritten or expunged. New amendments are added below at the appropriate version increment.

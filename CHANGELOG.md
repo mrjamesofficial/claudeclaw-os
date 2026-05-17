@@ -2,6 +2,61 @@
 
 All notable changes to ClaudeClaw will be documented here.
 
+## [v2.0-foundation] - 2026-05-17
+
+### BREAKING — Re-founding
+
+Full doctrine re-founding per v1.x AMENDMENT_PROCESS.md §3 (Locked Constants composition changed). v1.x text scrubbed; v2.0-Hardened (Path A Reconciled) replaces `ARMY_MISSION.md`, `AMENDMENT_PROCESS.md`, and all 5 agent `CLAUDE.md` doctrine blocks. See `AMENDMENT_LOG.md` v2.0 entry for full detail.
+
+### Added — Doctrine
+
+- AI-ARMY Doctrine v2.0-Hardened (globally brand-neutral title; no vendor/platform monikers)
+- 5 pillars (Quality, Integrity, Family, Respect and Honor, **Loyalty** — new)
+- Named Successor: **MrJames** (30-day unreachability trigger per §3.2/§9.6)
+- Reading II consent syntax: `<consent_word> msg:<id> @<HH:MM>` mandatory for Tier 2/3
+- §3.1.2 Token Expiration Lock (120s)
+- §3.6 Scope Discipline
+- §4.2 Multi-Model Fail-Secure
+- §4.3 No Self-Disarm (formalized v1.2 doctrine into hardened clause)
+- §5.7-5.9 attack vectors (Reconstruction, Silent Doctrine Injection, Semantic Inversion Veto)
+- §9.7.1 Hardware TOTP (transitional: verbal phrase signature)
+- §10.5 Layer Integrity Check (4 enforcement layers, fail-closed)
+- §11.9 Doctrinal KPIs (Protocol Compliance Rate, Resource Efficiency, Peer Attestation Sync)
+- §12.1.1 Memory Tainting
+- §12.6 Cryptographic Peer Attestation
+- 8 Locked Constants (up from 5), including **#8 No-Softening Clause** — relaxation requires hard fork
+
+### Added — Process
+
+- AMENDMENT_PROCESS.md §6 Pre-Flight Cross-Document Sync Mandate (basement + CLAUDE.md paired diffs)
+- AMENDMENT_PROCESS.md §7.2 Verbal Phrase Lifecycle
+- AMENDMENT_PROCESS.md §8 Rebaseline-First implementation pipeline
+- `basement.delegations` (access control ledger, JSON, James + MrJames)
+- §13-15 RESERVED placeholders (Banking, Accounting, Legal — populated via amendment per §1.2)
+
+### Changed
+
+- "ClaudeClaw AI Army Doctrine" → "AI-ARMY Doctrine"
+- §16 Cross-Layer Coordination permanently removed; §16 now = Amendment Layer
+- All 5 CLAUDE.md doctrine blocks updated (top-level main + research/comms/content/ops)
+- `basement.hashes` rebaselined for v2.0 doctrine files
+
+### Aspirational (build pending in v2.0.1+)
+
+Hardware TOTP infrastructure, `chattr +i` enforcement (needs sudo grant), KPI live telemetry, multi-model fallback wrapper, peer attestation publish/verify, memory tainting filters, token expiration parser middleware, AppArmor/seccomp profiles, `scripts/agent-claude-md.template` v2.0 update, `basement.hashes` TARGETS expansion, `legislative_archive.db` schema + historical migration.
+
+### Ratification Audit Trail
+
+- Phase B: `approved msg:stage-phase-b @16:17`
+- Phase D (Tier 3): `approved msg:deploy-basement-v2.0 @16:35 phrase:"hold the perimeter"`
+- Phase E (Tier 3): `approved msg:execute-phase-e @16:38 phrase:"hold the perimeter"`
+
+### Backup
+
+v1.8 pre-deployment basement state preserved at `~/.claudeclaw-backups/v1.8-pre-v2.0/` (13 files, 144K).
+
+---
+
 ## [unreleased] - 2026-05-01
 
 ### Fixed — agent file-send awareness

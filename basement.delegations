@@ -1,0 +1,86 @@
+{
+  "schema_version": "2.0",
+  "schema_doctrine_ref": "AMENDMENT_PROCESS.md v2.0 §1.2, §9.7; ARMY_MISSION.md §9 Trust Layer",
+  "created_at": "2026-05-17T16:17:00Z",
+  "created_by": "Main (drafting agent)",
+  "authorization": "approved msg:stage-phase-b @16:17",
+  "status": "DRAFTED — NOT YET DEPLOYED TO BASEMENT",
+  "deployment_target": "/home/adminjames/claudeclaw/basement.delegations",
+  "immutability_required": "chattr +i applied at deployment time per §10.3",
+  "_comment": "This file is the canonical access-control ledger for all named authorities under v2.0-Hardened doctrine. Verified by agents at every Tier 2/3 action via §9.7. Must be locked via OS-layer immutability before any verification call returns true.",
+
+  "authorities": [
+    {
+      "id": "auth-james-001",
+      "name": "James",
+      "role": "Commanding Authority",
+      "scope": "global",
+      "tier_authority": ["Tier 1", "Tier 2", "Tier 3"],
+      "delegable_subset": null,
+      "expiration": null,
+      "status": "active",
+      "channels_authorized": ["telegram", "cli", "direct"],
+      "activation_condition": "permanent — sole supreme decision-maker",
+      "revocation_condition": "non-revocable (Commanding Authority cannot be revoked, only succeeded)",
+      "doctrine_ref": ["§3.1 Permission", "§9.1 Commanding Authority", "§9.5 Trust Revocation (exempt)"],
+      "non_delegable_powers": [
+        "doctrine changes",
+        "sacred-path edits",
+        "granting other authorities",
+        "Tier 3 destructive operations"
+      ]
+    },
+    {
+      "id": "auth-mrjames-001",
+      "name": "MrJames",
+      "role": "Successor",
+      "scope": "global (inheritance only)",
+      "tier_authority": ["Tier 1", "Tier 2", "Tier 3"],
+      "delegable_subset": null,
+      "expiration": null,
+      "status": "dormant",
+      "channels_authorized": ["telegram", "cli", "direct"],
+      "activation_condition": "Commanding Authority unreachable for 30 consecutive operational days, automated check per §9.6",
+      "revocation_condition": "Commanding Authority returns within the 30-day window — Successor remains dormant",
+      "doctrine_ref": ["§3.2 Succession", "§9.6 Succession Order"],
+      "inheritance_notes": "Inherits full Commanding Authority on activation. Locked Constants remain immune. Inherits same non-delegable powers."
+    }
+  ],
+
+  "delegations": [],
+  "_delegations_schema": {
+    "id": "auth-<name>-<sequence>",
+    "name": "string",
+    "role": "Delegated Authority | Tenant Authority",
+    "scope": "string (specific scope description)",
+    "tier_authority": ["Tier 1", "Tier 2"],
+    "tenant": "string (for Tenant Authority only)",
+    "expiration": "ISO 8601 timestamp or null",
+    "status": "active | suspended | revoked",
+    "granted_by": "Commanding Authority",
+    "granted_at": "ISO 8601 timestamp",
+    "doctrine_ref": ["§9.2 Delegated Authorities OR §9.3 Tenant Authorities"]
+  },
+
+  "revocations": [],
+  "_revocations_schema": {
+    "revoked_id": "auth-id of revoked authority",
+    "revoked_at": "ISO 8601 timestamp",
+    "revoked_by": "Commanding Authority",
+    "reason": "string",
+    "doctrine_ref": "§9.5 Trust Revocation"
+  },
+
+  "verification_protocol": {
+    "doctrine_ref": "§9.7 Verification, §9.7.1 Out-of-Band Hardware TOTP",
+    "process": [
+      "1. Agent receives authority claim with delegation ID",
+      "2. Agent verifies basement.delegations file is locked via chattr +i (lsattr check)",
+      "3. If lock is INACTIVE: fail closed, alert Commanding Authority",
+      "4. If lock is ACTIVE: lookup id in authorities[] or delegations[]",
+      "5. Verify status == 'active' AND not in revocations[] AND not expired",
+      "6. For Tier 3: additionally require Out-of-Band Hardware TOTP per §9.7.1 (or transitional verbal phrase signature until TOTP infrastructure exists)",
+      "7. If all checks pass: action authorized. If any fail: fail closed, log to audit trail per §3.5"
+    ]
+  }
+}
