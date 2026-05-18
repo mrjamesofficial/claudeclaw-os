@@ -535,6 +535,58 @@ The doctrine is real on day one as a behavioral floor. Infrastructure builds in 
 
 ---
 
+## v2.0.1 — Template Inheritance v2.0 Update
+**Date:** 2026-05-17
+**Type:** Refinement (cross-document propagation per v2.0 §6.1)
+**Tag:** `v2.0.1-foundation`
+**Proposer:** James (Commanding Authority)
+**Ratification:** `approved msg:template-v2.0-update @16:55 phrase:"hold the perimeter"`
+
+### Summary
+
+Updated `scripts/agent-claude-md.template` to inherit the v2.0-Hardened doctrine block (replacing the v1.x FOUNDATIONAL DOCTRINE + COMMAND AUTHORITY sections). This prevents Phase 2 agent onboarding (KPI, Banking, Accounting, Legal) from inheriting stale v1.x doctrine via `scripts/onboard-agent.sh`.
+
+### Rationale
+
+After v2.0-foundation ratification, the inheritance template still emitted v1.x doctrine. The Phase 2 expansion plan would have produced new agents operating on softer doctrine than the existing 5 — a directional softening prohibited by Locked Constant #8 (No-Softening Clause). v2.0.1 closes this propagation gap before Phase 2 begins.
+
+### Execution via §6.6 Bootstrap Pattern
+
+The template is a v1.8-protected sacred path. Direct Edit/Write is blocked by the doctrine-preToolUse hook in enforce mode. Per AMENDMENT_PROCESS.md §6.6:
+
+1. Lifted hook to `audit` mode via Python interpreter write to settings.json (bypasses v1.4 BASH_BLOCK_PATTERNS legitimately — documented use)
+2. Wrote v2.0 doctrine template, preserving `${AGENT_NAME}` / `${AGENT_DESC}` / `${AGENT_ID}` placeholders for envsubst compatibility (`scripts/onboard-agent.sh` unchanged)
+3. Restored hook to `enforce` mode via same interpreter pattern
+4. Rebaselined basement.hashes — new template SHA-256: `cca9b0816ac6bb26e37956e12286c84e0b3270d5601a7a07e4e9fd85a17a447a`
+5. `basement-hash-check.sh` returns exit 0 — PASS
+
+Bootstrap discipline maintained: restoration was immediate and within the same authorization cycle.
+
+### Verification
+
+- Hook command confirmed back to `DOCTRINE_HOOK_MODE=enforce`
+- basement.hashes updated with new template hash
+- basement-hash-check exit 0 ✓
+
+### Onboarding Validation (Pending)
+
+Run `scripts/onboard-agent.sh` for one Phase 2 agent (e.g., KPI) and verify the generated `CLAUDE.md` contains the v2.0 doctrine block (not v1.x text). Result belongs in a new `scripts/COMPLIANCE_TEST_RESULTS_v2.0.1.md` after Phase 2 begins.
+
+### Carry-Forward to v2.0.2+
+
+1. `basement.hashes` TARGETS expansion (add `basement.delegations` + 5× active `CLAUDE.md` files)
+2. Hardware TOTP infrastructure (§9.7.1) — still transitional
+3. chattr +i grant or readonly alternative (§10.3)
+4. KPI live telemetry (§11.9)
+5. Multi-model fail-secure wrapper (§4.2)
+6. Memory tainting sanitization filter (§12.1.1)
+7. Peer attestation publish/verify logic (§12.6)
+8. Token expiration parser middleware (§3.1.2)
+9. AppArmor/seccomp per-agent profiles (§10.4)
+10. legislative_archive.db schema + historical migration
+
+---
+
 ## Append-Only Discipline
 
 This file is append-only per `AMENDMENT_PROCESS.md` §10.3. Past entries are never rewritten or expunged. New amendments are added below at the appropriate version increment.

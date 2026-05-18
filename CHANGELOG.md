@@ -2,6 +2,26 @@
 
 All notable changes to ClaudeClaw will be documented here.
 
+## [v2.0.1-foundation] - 2026-05-17
+
+### Changed
+- `scripts/agent-claude-md.template` updated to v2.0-Hardened doctrine block. Phase 2 agents (KPI, Banking, Accounting, Legal) now inherit v2.0 doctrine from boot 0 — prevents v1.x softness drift via onboarding (per Locked Constant #8 No-Softening Clause).
+- `basement.hashes` rebaselined for new template hash: `cca9b0816ac6bb26e37956e12286c84e0b3270d5601a7a07e4e9fd85a17a447a`
+
+### Execution
+
+Via AMENDMENT_PROCESS.md §6.6 Bootstrap Pattern: hook lift (enforce → audit) → template write → hook restore (audit → enforce) → rebaseline → verify exit 0. Bootstrap discipline maintained (immediate restore within same authorization cycle).
+
+### Ratification
+
+- `approved msg:template-v2.0-update @16:55 phrase:"hold the perimeter"`
+
+### Validation
+
+`basement-hash-check.sh` exit 0 PASS post-rebaseline. Onboarding validation pending (run `scripts/onboard-agent.sh` for KPI to verify v2.0 inheritance).
+
+---
+
 ## [v2.0-foundation] - 2026-05-17
 
 ### BREAKING — Re-founding
