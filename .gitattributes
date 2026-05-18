@@ -1,0 +1,5 @@
+# Doctrine files — encrypted via git-crypt
+# Plaintext locally, encrypted binary on GitHub
+ARMY_MISSION.md filter=git-crypt diff=git-crypt
+AMENDMENT_PROCESS.md filter=git-crypt diff=git-crypt
+AMENDMENT_LOG.md filter=git-crypt diff=git-crypt
